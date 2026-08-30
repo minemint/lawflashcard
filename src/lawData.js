@@ -1,17 +1,19 @@
 import { thaiToArabic, arabicToThai } from './utils.js'
 
+const BASE = import.meta.env.BASE_URL
+
 export const LAW_CODES = [
   {
     id: 'civil',
     shortName: 'ป.แพ่งและพาณิชย์',
     longName: 'ประมวลกฎหมายแพ่งและพาณิชย์',
-    file: '/data/civil-and-commercial-code.json',
+    file: `${BASE}data/civil-and-commercial-code.json`,
   },
   {
     id: 'criminal',
     shortName: 'ป.อาญา',
     longName: 'ประมวลกฎหมายอาญา',
-    file: '/data/criminal-code.json',
+    file: `${BASE}data/criminal-code.json`,
   },
 ]
 
