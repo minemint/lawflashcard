@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../store.jsx'
 import { LAW_CODES, loadLaw, articlePath, searchArticles } from '../lawData.js'
 import { excerpt, PASTELS } from '../utils.js'
+import { ADSENSE } from '../config.js'
+import AdSlot from './AdSlot.jsx'
 
 const PAGE_SIZE = 250
 const NEW_GROUP = '__new__'
@@ -136,6 +138,8 @@ export default function LawImportPage({ groupId = null, navigate }) {
         </div>
         <p className="muted">{law.longName}</p>
       </div>
+
+      <AdSlot slotKey="import-top" slot={ADSENSE.slots.importTop} navigate={navigate} />
 
       <div className="search-row">
         <input

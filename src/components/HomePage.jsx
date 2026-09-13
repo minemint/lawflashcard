@@ -1,8 +1,29 @@
 import React, { useMemo, useState } from 'react'
 import { useStore } from '../store.jsx'
 import { PASTELS, colorVars } from '../utils.js'
+import { ADSENSE } from '../config.js'
+import AdSlot from './AdSlot.jsx'
 import GroupForm from './GroupForm.jsx'
 import ConfirmDialog from './ConfirmDialog.jsx'
+
+const FAQ = [
+  {
+    q: 'ใช้งานฟรีจริงหรือ ต้องสมัครสมาชิกไหม',
+    a: 'ใช้ฟรีทุกฟีเจอร์ ไม่ต้องสมัครหรือล็อกอิน ไม่มีการเก็บข้อมูลส่วนตัว เปิดเว็บแล้วเริ่มทบทวนได้ทันที',
+  },
+  {
+    q: 'การ์ดของฉันเก็บไว้ที่ไหน ปลอดภัยไหม',
+    a: 'ทุกอย่างเก็บอยู่ในเบราว์เซอร์ของเครื่องคุณเท่านั้น (localStorage) ไม่มีเซิร์ฟเวอร์กลางรับข้อมูล แต่ถ้าล้างข้อมูลเบราว์เซอร์การ์ดจะหายไปด้วย',
+  },
+  {
+    q: 'นำเข้ามาตราจากกฎหมายอะไรได้บ้าง',
+    a: 'ปัจจุบันมี ประมวลกฎหมายแพ่งและพาณิชย์ 1,872 มาตรา และประมวลกฎหมายอาญา 448 มาตรา ค้นหาด้วยเลขมาตราหรือคำในเนื้อหาแล้วเลือกส่งเข้ากลุ่มได้ทันที',
+  },
+  {
+    q: 'เหมาะกับใคร',
+    a: 'นักศึกษานิติศาสตร์ ผู้เตรียมสอบใบอนุญาตทนายความ สอบเนติ หรือใครก็ตามที่ต้องท่องจำตัวบทกฎหมายเป็นประจำ',
+  },
+]
 
 export default function HomePage({ navigate }) {
   const { groups, api } = useStore()
@@ -33,6 +54,8 @@ export default function HomePage({ navigate }) {
           </button>
         </div>
       </section>
+
+      <AdSlot slotKey="home-top" slot={ADSENSE.slots.homeTop} navigate={navigate} />
 
       {groups.length === 0 ? (
         <div className="empty">
@@ -123,6 +146,18 @@ export default function HomePage({ navigate }) {
           </div>
         </>
       )}
+
+      <AdSlot slotKey="home-bottom" slot={ADSENSE.slots.homeBottom} navigate={navigate} />
+
+      <section className="faq" aria-label="คำถามที่พบบ่อย">
+        <h2>คำถามที่พบบ่อย</h2>
+        {FAQ.map((item) => (
+          <details key={item.q} className="faq-item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </section>
 
       {groupForm && (
         <GroupForm

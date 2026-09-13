@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://minemint.github.io/lawflashcard/sitemap.xml

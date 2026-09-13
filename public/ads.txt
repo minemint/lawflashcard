@@ -1,0 +1,5 @@
+# ads.txt — ประกาศผู้ขายโฆษณาที่ได้รับอนุญาต (Authorized Digital Sellers)
+# เมื่อได้รหัสผู้เผยแพร่ AdSense (ca-pub-XXXXXXXXXXXXXXXX) แล้ว
+# เอาคอมเมนต์หน้าบรรทัดด้านล่างออก และเปลี่ยนรหัสให้ตรงกับบัญชีจริง
+#
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

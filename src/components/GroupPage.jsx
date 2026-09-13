@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../store.jsx'
 import { colorVars, excerpt, STATUS_LABEL } from '../utils.js'
+import { ADSENSE } from '../config.js'
+import AdSlot from './AdSlot.jsx'
 import CardForm from './CardForm.jsx'
 import GroupForm from './GroupForm.jsx'
 import ConfirmDialog from './ConfirmDialog.jsx'
@@ -59,6 +61,8 @@ export default function GroupPage({ groupId, navigate }) {
           ทั้งหมด {counts.all} · ใหม่ {counts.new} · ยังไม่ได้ {counts.unknown} · จำได้ {counts.known}
         </p>
       </div>
+
+      <AdSlot slotKey="group-top" slot={ADSENSE.slots.groupTop} navigate={navigate} />
 
       <div className="toolbar">
         <button type="button" className="btn btn-primary" onClick={() => setCardForm({ card: null })}>
