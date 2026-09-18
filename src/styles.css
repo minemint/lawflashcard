@@ -1757,6 +1757,25 @@ kbd {
   border-top: 3px solid var(--miss);
 }
 
+.way-truemoney {
+  border-top: 3px solid #e05656;
+}
+
+.tm-steps {
+  margin: 0 0 4px;
+  padding-left: 22px;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+.tm-steps li {
+  margin-bottom: 4px;
+}
+
+.tm-angpao-cta {
+  text-align: center;
+}
+
 .amount-presets {
   display: flex;
   gap: 8px;

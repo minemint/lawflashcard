@@ -1,10 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { ADSENSE, DONATE, SITE } from '../config.js'
-import { baht, promptPayQrDataUrl, shortDate, useSupportData } from '../support.js'
+import { angpaoQrDataUrl, baht, promptPayQrDataUrl, shortDate, useSupportData } from '../support.js'
 import AdSlot from './AdSlot.jsx'
 
 const PRESET_AMOUNTS = [50, 100, 300, 500]
 const MEDALS = ['🥇', '🥈', '🥉']
+
+function CopyButton({ text, label = 'คัดลอก' }) {
+  const [copied, setCopied] = useState(false)
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1800)
+    } catch {
+      // คลิปบอร์ดถูกปิด — ผู้ใช้พิมพ์เลขเองได้จากที่แสดงบนการ์ด
+    }
+  }
+
+  return (
+    <button type="button" className="btn btn-soft btn-sm" onClick={copy}>
+      {copied ? 'คัดลอกแล้ว ✓' : label}
+    </button>
+  )
+}
 
 function GoalCard({ data }) {
   if (!data) return null
@@ -30,7 +50,6 @@ function GoalCard({ data }) {
 function PromptPayCard() {
   const [amount, setAmount] = useState(0)
   const [qrUrl, setQrUrl] = useState(null)
-  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     let alive = true
@@ -44,16 +63,6 @@ function PromptPayCard() {
   }, [amount])
 
   if (!DONATE.promptpay) return null
-
-  async function copyId() {
-    try {
-      await navigator.clipboard.writeText(DONATE.promptpay)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1800)
-    } catch {
-      // คลิปบอร์ดถูกปิด — ผู้ใช้พิมพ์เลขเองได้จากที่แสดงบนการ์ด
-    }
-  }
 
   return (
     <section className="way-card way-promptpay">
@@ -84,11 +93,65 @@ function PromptPayCard() {
         )}
       </div>
       <p className="way-note">
-        เบอร์/เลขพร้อมเพย์ <code>{DONATE.promptpay}</code>{' '}
-        <button type="button" className="btn btn-soft btn-sm" onClick={copyId}>
-          {copied ? 'คัดลอกแล้ว ✓' : 'คัดลอก'}
-        </button>
+        เบอร์/เลขพร้อมเพย์ <code>{DONATE.promptpay}</code> <CopyButton text={DONATE.promptpay} />
       </p>
+    </section>
+  )
+}
+
+function TrueMoneyCard() {
+  const tm = DONATE.truemoney
+  const [qrUrl, setQrUrl] = useState(null)
+  const hasPhone = Boolean(tm?.phone)
+  const hasAngpao = Boolean(tm?.angpao)
+
+  useEffect(() => {
+    let alive = true
+    setQrUrl(null)
+    angpaoQrDataUrl().then((url) => {
+      if (alive) setQrUrl(url)
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  if (!hasPhone && !hasAngpao) return null
+
+  return (
+    <section className="way-card way-truemoney">
+      <h3>TrueMoney Wallet</h3>
+      {hasPhone && (
+        <>
+          <p className="way-note">
+            โอนเข้าเบอร์ <code>{tm.phone}</code> ({tm.name || 'บัตรมาตรา'}) <CopyButton text={tm.phone} />
+          </p>
+          <ol className="tm-steps">
+            <li>เปิดแอป TrueMoney Wallet</li>
+            <li>เลือก "โอนเงิน" หรือ "ส่งเงิน"</li>
+            <li>ใส่เบอร์ปลายทางแล้วระบุยอดที่ต้องการ</li>
+          </ol>
+        </>
+      )}
+      {hasAngpao && (
+        <>
+          <p className="way-note">หรือสแกนรับซองอั่งเปา / กดเปิดลิงก์ในมือถือ</p>
+          <div className="qr-wrap">
+            {qrUrl ? (
+              <img src={qrUrl} alt="QR ลิงก์ซองอั่งเปา TrueMoney" width={200} height={200} />
+            ) : (
+              <div className="qr-placeholder" aria-hidden="true">
+                <div className="spinner" />
+              </div>
+            )}
+          </div>
+          <div className="tm-angpao-cta">
+            <a className="btn btn-primary" href={tm.angpao} target="_blank" rel="noopener noreferrer">
+              เปิดซองอั่งเปา ↗
+            </a>
+          </div>
+        </>
+      )}
     </section>
   )
 }
@@ -97,8 +160,9 @@ function WaysSection() {
   const links = (DONATE.links || []).filter((l) => l.href)
   const bank = DONATE.bank && DONATE.bank.name ? DONATE.bank : null
   const hasPromptPay = Boolean(DONATE.promptpay)
+  const hasTrueMoney = Boolean(DONATE.truemoney?.phone || DONATE.truemoney?.angpao)
 
-  if (!hasPromptPay && links.length === 0 && !bank) {
+  if (!hasPromptPay && !hasTrueMoney && links.length === 0 && !bank) {
     return (
       <section className="way-card">
         <h3>ช่องทางสนับสนุน</h3>
@@ -114,6 +178,7 @@ function WaysSection() {
   return (
     <div className="ways-grid">
       <PromptPayCard />
+      <TrueMoneyCard />
       {bank && (
         <section className="way-card">
           <h3>โอนเข้าบัญชีธนาคาร</h3>

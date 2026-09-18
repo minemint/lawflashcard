@@ -35,13 +35,13 @@ export const DONATE = {
   /** พร้อมเพย์: เบอร์โทร (0xxxxxxxxx) หรือเลขบัตรประชาชน 13 หลัก — เว้นว่าง = ซ่อน QR */
   promptpay: '',
   promptpayName: 'บัตรมาตรา',
+  /** TrueMoney Wallet — กรอกอย่างใดอย่างหนึ่งแล้วการ์ดจะแสดงทันที
+   *  phone: เบอร์ Wallet (ใช้โอนได้ถาวร) · angpao: ลิงก์ซองอั่งเปาจากแอป (แสดง QR + ปุ่มเปิดลิงก์) */
+  truemoney: { phone: '', name: 'บัตรมาตรา', angpao: '' },
   /** บัญชีธนาคารสำรอง (แสดงเมื่อกรอกครบ) */
   bank: { name: '', accountNo: '', accountName: '' },
-  /** ลิงก์รับเงินอื่น ๆ เช่น Ko-fi / TrueMoney / PayPal — เว้นว่าง = ซ่อน */
-  links: [
-    { id: 'kofi', label: 'Ko-fi', href: '' },
-    { id: 'truemoney', label: 'TrueMoney Wallet', href: '' },
-  ],
+  /** ลิงก์รับเงินอื่น ๆ เช่น Ko-fi / PayPal — เว้นว่าง = ซ่อน */
+  links: [{ id: 'kofi', label: 'Ko-fi', href: '' }],
 }
 
 /** แบนเนอร์โฮมสไตล์ (house ads) ใช้เมื่อยังไม่ได้ใส่รหัส AdSense */

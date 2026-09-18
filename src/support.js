@@ -76,22 +76,33 @@ export function shortDate(iso) {
 }
 
 /**
- * QR พร้อมเพย์เป็น data URL — คืน null ถ้าไม่ได้ตั้งค่า promptpay ใน config.js
- * amount เป็น 0/undefined = QR แบบเปิดยอดเองที่ตู้/แอป
+ * สร้าง QR จากข้อความ/ลิงก์ใด ๆ เป็น data URL (ใช้ร่วมกับพร้อมเพย์และซองอั่งเปา)
  */
-export async function promptPayQrDataUrl(amount) {
-  if (!DONATE.promptpay) return null
-  const [generatePayload, QRCode] = await Promise.all([
-    import('promptpay-qr'),
-    import('qrcode'),
-  ])
-  const payload = generatePayload.default(DONATE.promptpay, {
-    amount: Number(amount) > 0 ? Number(amount) : undefined,
-  })
-  return QRCode.default.toDataURL(payload, {
+async function textQrDataUrl(text) {
+  const QRCode = await import('qrcode')
+  return QRCode.default.toDataURL(text, {
     width: 480,
     margin: 1,
     color: { dark: '#33323f', light: '#ffffff' },
     errorCorrectionLevel: 'M',
   })
+}
+
+/**
+ * QR พร้อมเพย์เป็น data URL — คืน null ถ้าไม่ได้ตั้งค่า promptpay ใน config.js
+ * amount เป็น 0/undefined = QR แบบเปิดยอดเองที่ตู้/แอป
+ */
+export async function promptPayQrDataUrl(amount) {
+  if (!DONATE.promptpay) return null
+  const { default: generatePayload } = await import('promptpay-qr')
+  const payload = generatePayload(DONATE.promptpay, {
+    amount: Number(amount) > 0 ? Number(amount) : undefined,
+  })
+  return textQrDataUrl(payload)
+}
+
+/** QR ของลิงก์ซองอั่งเปา TrueMoney — คืน null ถ้ายังไม่ตั้งค่า angpao */
+export async function angpaoQrDataUrl() {
+  if (!DONATE.truemoney?.angpao) return null
+  return textQrDataUrl(DONATE.truemoney.angpao)
 }
