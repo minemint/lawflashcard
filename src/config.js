@@ -10,70 +10,70 @@
  */
 
 export const SITE = {
-  name: 'บัตรมาตรา',
-  tagline: 'ทบทวนกฎหมายด้วยการ์ด',
-  url: 'https://minemint.github.io/lawflashcard/',
+  name: "บัตรมาตรา",
+  tagline: "ทบทวนกฎหมายด้วยการ์ด",
+  url: "https://minemint.github.io/lawflashcard/",
   since: 2026,
-  contactEmail: 'contact@example.com',
-}
+  contactEmail: "contact@example.com"
+};
 
 export const ADSENSE = {
   // เว้นว่างไว้ก่อน = ยังไม่ใช้โฆษณาจริง ระบบจะแสดงแบนเนอร์โฮมสไตล์แทน
-  clientId: '',
+  clientId: "",
   slots: {
-    homeTop: '', // data-ad-slot ของหน้าแรก (แถบบน)
-    homeBottom: '', // data-ad-slot ของหน้าแรก (แถบล่าง)
-    groupTop: '', // data-ad-slot ของหน้ากลุ่ม
-    importTop: '', // data-ad-slot ของหน้านำเข้ากฎหมาย
-    supportPage: '', // data-ad-slot ของหน้าสนับสนุน
-  },
-}
+    homeTop: "", // data-ad-slot ของหน้าแรก (แถบบน)
+    homeBottom: "", // data-ad-slot ของหน้าแรก (แถบล่าง)
+    groupTop: "", // data-ad-slot ของหน้ากลุ่ม
+    importTop: "", // data-ad-slot ของหน้านำเข้ากฎหมาย
+    supportPage: "" // data-ad-slot ของหน้าสนับสนุน
+  }
+};
 
 export const DONATE = {
   /** เป้าหมายยอดสนับสนุนต่อเดือน (บาท) — ข้อมูลรายเดือนอยู่ที่ public/data/supporters.json */
   monthlyGoal: 3000,
   /** พร้อมเพย์: เบอร์โทร (0xxxxxxxxx) หรือเลขบัตรประชาชน 13 หลัก — เว้นว่าง = ซ่อน QR */
-  promptpay: '',
-  promptpayName: 'บัตรมาตรา',
+  promptpay: "0961344754",
+  promptpayName: "นทีธร กลมเกลียว",
   /** TrueMoney Wallet — กรอกอย่างใดอย่างหนึ่งแล้วการ์ดจะแสดงทันที
    *  phone: เบอร์ Wallet (ใช้โอนได้ถาวร) · angpao: ลิงก์ซองอั่งเปาจากแอป (แสดง QR + ปุ่มเปิดลิงก์) */
-  truemoney: { phone: '', name: 'บัตรมาตรา', angpao: '' },
+  truemoney: { phone: "0961344754", name: "นทีธร กลมเกลียว", angpao: "" },
   /** บัญชีธนาคารสำรอง (แสดงเมื่อกรอกครบ) */
-  bank: { name: '', accountNo: '', accountName: '' },
+  bank: { name: "", accountNo: "", accountName: "" },
   /** ลิงก์รับเงินอื่น ๆ เช่น Ko-fi / PayPal — เว้นว่าง = ซ่อน */
-  links: [{ id: 'kofi', label: 'Ko-fi', href: '' }],
-}
+  links: [{ id: "kofi", label: "Ko-fi", href: "" }]
+};
 
 /** แบนเนอร์โฮมสไตล์ (house ads) ใช้เมื่อยังไม่ได้ใส่รหัส AdSense */
 export const HOUSE_ADS = [
   {
-    id: 'import-law',
-    eyebrow: 'ฟีเจอร์เด่น',
-    title: 'นำเข้ามาตราจากตัวบทกฎหมายโดยตรง',
-    text: 'เลือกมาตราจาก ป.แพ่งฯ และ ป.อาญา เป็นการ์ดได้ในคลิกเดียว ไม่ต้องพิมพ์เอง',
-    cta: 'ไปหน้านำเข้า',
-    view: 'import',
-    color: 'sky',
+    id: "import-law",
+    eyebrow: "ฟีเจอร์เด่น",
+    title: "นำเข้ามาตราจากตัวบทกฎหมายโดยตรง",
+    text: "เลือกมาตราจาก ป.แพ่งฯ และ ป.อาญา เป็นการ์ดได้ในคลิกเดียว ไม่ต้องพิมพ์เอง",
+    cta: "ไปหน้านำเข้า",
+    view: "import",
+    color: "sky"
   },
   {
-    id: 'match-game',
-    eyebrow: 'พักสมองแบบมีสาระ',
-    title: 'มินิเกมจับคู่มาตรา',
-    text: 'ท่องจำสนุกขึ้นด้วยการจับคู่หัวข้อกับเนื้อหามาตรา จับเวลา นับคะแนน',
-    cta: 'ลองเล่นเลย',
-    view: 'match',
-    color: 'butter',
+    id: "match-game",
+    eyebrow: "พักสมองแบบมีสาระ",
+    title: "มินิเกมจับคู่มาตรา",
+    text: "ท่องจำสนุกขึ้นด้วยการจับคู่หัวข้อกับเนื้อหามาตรา จับเวลา นับคะแนน",
+    cta: "ลองเล่นเลย",
+    view: "match",
+    color: "butter"
   },
   {
-    id: 'support-us',
-    eyebrow: 'สนับสนุนเรา',
-    title: 'ช่วยให้บัตรมาตราเติบโตต่อไป',
-    text: 'ค่าโฮสติ้งและการอัปเดตตัวบทกฎหมายทุกปี มาจากผู้ใช้อย่างคุณ',
-    cta: 'ดูวิธีสนับสนุน',
-    view: 'support',
-    color: 'mint',
-  },
-]
+    id: "support-us",
+    eyebrow: "สนับสนุนเรา",
+    title: "ช่วยให้บัตรมาตราเติบโตต่อไป",
+    text: "ค่าโฮสติ้งและการอัปเดตตัวบทกฎหมายทุกปี มาจากผู้ใช้อย่างคุณ",
+    cta: "ดูวิธีสนับสนุน",
+    view: "support",
+    color: "mint"
+  }
+];
 
 /** เลือกแบนเนอร์โฮมสไตล์แบบหมุนเวียนตามตำแหน่งช่อง */
-export const houseAdAt = (index) => HOUSE_ADS[index % HOUSE_ADS.length]
+export const houseAdAt = (index) => HOUSE_ADS[index % HOUSE_ADS.length];
